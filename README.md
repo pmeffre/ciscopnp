@@ -25,7 +25,7 @@ Pull the image from Docker Hub:
 You have to create a config directory (/your/config/directory) which must contains:
  - vars.py file
  - test.cfg
- - and all ios_config_files of your switch
+ - and all ios_config_files of your switches
 
 The vars.py file looks like :
 ```
