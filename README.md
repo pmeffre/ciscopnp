@@ -29,13 +29,15 @@ You have to create a config directory (/your/config/directory) which must contai
 
 The vars.py file looks like :
 ```
+# put the correct address of your server
+HTTP_SERVER = "your_server:80"
 
-HTTP_SERVER = "0.0.0.0:80"
-
+# Complete this dict with the SN et config file name of your switches
 DEVICES = {
     "9DNVJ6W5CFV": { "config-filename": "test.cfg" },
 }
 ```
 and for launching the container :
+NB: this container use flask which listen by default on port 8080
 
 `docker run -v /your/config/directory:/var/www -p 80:8080 -d --name ciscopnp meffre/ciscopnp` 
