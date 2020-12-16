@@ -80,11 +80,9 @@ def pnp_work_request():
       result_data = render_template('load_config.xml', **jinja_context)
       return Response(result_data, mimetype='text/xml')
     except: 
-      sys.stderr.write("SOURCE ADDRESS:" + request.environ['REMOTE_ADDR'] + ", SERIAL:"+serial_number+"\n")
+      sys.stderr.write("SOURCE ADDRESS:" + request.environ['REMOTE_ADDR'] + ", SERIAL:"+serial_number+" not known ! \n")
       return ''
-    else: 
-      print("autre")
-      return ''
+
 
 @app.route('/pnp/WORK-RESPONSE', methods=['POST'])
 def pnp_work_response():
