@@ -72,16 +72,11 @@ def pnp_work_request():
       print("Loading " + config_filename + " on " + request.environ['REMOTE_ADDR'] )
       return Response(result_data, mimetype='text/xml')
     except: 
-<<<<<<< HEAD
       sys.stderr.write("Unable to load " + config_filename + " on " + request.environ['REMOTE_ADDR'] + " ("+serial_number+")\n")
       return ''
     else: 
       print("autre")
-=======
-      sys.stderr.write("SOURCE ADDRESS:" + request.environ['REMOTE_ADDR'] + ", SERIAL:"+serial_number+" not known ! \n")
->>>>>>> 2eb6599c299bc14a6ae4a3ae24644da23cbf0928
       return ''
-
 
 @app.route('/pnp/WORK-RESPONSE', methods=['POST'])
 def pnp_work_response():
