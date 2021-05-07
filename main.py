@@ -13,7 +13,6 @@ import xmltodict
 app = Flask(__name__, template_folder="templates")
 current_dir = Path(__file__)
 
-#SERIAL_NUM_RE = re.compile(r"PID:(?P<product_id>\w+),VID:(?P<hw_version>\w+),SN:(?P<serial_number>\w+)")
 SERIAL_NUM_RE = re.compile(r"PID:(?P<product_id>\w+(?:-\w+)*),VID:(?P<hw_version>\w+),SN:(?P<serial_number>\w+)")
 
 def work_request(host, type="device_info"):
@@ -25,8 +24,6 @@ def work_request(host, type="device_info"):
 
 def get_device_info(host):
     url = f"http://{host}/pnp/WORK-REQUEST"
-    # response =
-
 
 @app.route('/test-xml')
 def test_xml():
@@ -57,20 +54,14 @@ def pnp_hello():
 
 @app.route('/pnp/WORK-REQUEST', methods=['POST'])
 def pnp_work_request():
-    print(request.data)
     src_add = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    print(src_add)
     data = xmltodict.parse(request.data)
     correlator_id = data['pnp']['info']['@correlator']
-    print(correlator_id)
     udi = data['pnp']['@udi']
-    print(udi)
     udi_match = SERIAL_NUM_RE.match(udi)
-    print(udi_match)
     serial_number = udi_match.group('serial_number')
-    print("SOURCE ADDRESS:" + request.environ['REMOTE_ADDR'] + ", SERIAL:"+serial_number)
     try: 
-      config_filename = DEVICES[serial_number]["config-filename"]
+      config_filename = DEVICES[serial_number][config-filename]
       jinja_context = {
           "udi": udi,
           "correlator_id": correlator_id,
@@ -78,9 +69,10 @@ def pnp_work_request():
           "http_server" : HTTP_SERVER,
       }
       result_data = render_template('load_config.xml', **jinja_context)
+      print("Loading " + config_filename + " on " + request.environ['REMOTE_ADDR'] )
       return Response(result_data, mimetype='text/xml')
     except: 
-      sys.stderr.write("SOURCE ADDRESS:" + request.environ['REMOTE_ADDR'] + ", SERIAL:"+serial_number+"\n")
+      sys.stderr.write("Unable to load " + config_filename + " on " + request.environ['REMOTE_ADDR'] + " ("+serial_number+")\n")
       return ''
     else: 
       print("autre")
