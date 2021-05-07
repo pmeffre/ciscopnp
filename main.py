@@ -61,11 +61,11 @@ def pnp_work_request():
     udi_match = SERIAL_NUM_RE.match(udi)
     serial_number = udi_match.group('serial_number')
     try: 
-      config_filename = DEVICES[serial_number][config-filename]
+      config_file = DEVICES[serial_number][config-filename]
       jinja_context = {
           "udi": udi,
           "correlator_id": correlator_id,
-          "config_filename": config_filename,
+          "config_filename": config_file,
           "http_server" : HTTP_SERVER,
       }
       result_data = render_template('load_config.xml', **jinja_context)
@@ -77,6 +77,7 @@ def pnp_work_request():
     else: 
       print("autre")
       return ''
+
 
 @app.route('/pnp/WORK-RESPONSE', methods=['POST'])
 def pnp_work_response():
