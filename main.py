@@ -72,7 +72,7 @@ def pnp_work_request():
       print("Loading " + config_filename + " on " + request.environ['REMOTE_ADDR'] )
       return Response(result_data, mimetype='text/xml')
     except: 
-      sys.stderr.write("Unable to load " + config_filename + " on " + request.environ['REMOTE_ADDR'] + " ("+serial_number+")\n")
+      sys.stderr.write("Unable to load " + config_file + " on " + request.environ['REMOTE_ADDR'] + " ("+serial_number+")\n")
       return ''
     else: 
       print("autre")
