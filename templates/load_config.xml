@@ -4,7 +4,7 @@
     <config details="all">
       <copy>
         <source>
-		<location>http://{{ http_server }}/configs/{{ config_filename }}</location>
+		      <location>http://{{ http_server }}/configs/{{ config_filename }}</location>
         </source>
       </copy>
     </config>
